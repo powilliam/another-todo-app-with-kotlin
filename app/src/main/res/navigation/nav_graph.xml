@@ -3,26 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
-
+    app:startDestination="@id/todosFragment">
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.powilliam.anothertodoapp.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
+        android:id="@+id/todosFragment"
+        android:name="com.powilliam.anothertodoapp.TodosFragment"
+        tools:layout="@layout/fragment_todos" >
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_todosFragment_to_writeTodoBottomSheetFragment"
+            app:destination="@id/writeTodoBottomSheetFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.powilliam.anothertodoapp.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
+    <dialog
+        android:id="@+id/writeTodoBottomSheetFragment"
+        android:name="com.powilliam.anothertodoapp.WriteTodoBottomSheetFragment"
+        tools:layout="@layout/fragment_write_todo_bottom_sheet" >
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+            android:id="@+id/action_writeTodoBottomSheetFragment_to_todosFragment"
+            app:destination="@id/todosFragment"
+            app:popUpTo="@id/todosFragment"
+            app:popUpToInclusive="true" />
+    </dialog>
 </navigation>
