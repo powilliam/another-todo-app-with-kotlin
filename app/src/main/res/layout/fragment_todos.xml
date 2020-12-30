@@ -17,51 +17,57 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|enterAlways"
                 app:title="@string/your_todos"
-                app:menu="@menu/fragment_todos_menu"/>
+                app:menu="@menu/fragment_todos_menu"
+                android:elevation="0dp"/>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                app:singleSelection="true"
+                app:selectionRequired="true"
+                app:checkedChip="@+id/filter_all"
+                android:background="@color/backgroundColor">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/filter_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/all" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/filter_incomplete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/incomplete" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/filter_complete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/complete" />
+
+            </com.google.android.material.chip.ChipGroup>
 
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/todo_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/chip_group_filter"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="16dp"
-                    app:singleSelection="true"
-                    app:selectionRequired="true"
-                    app:checkedChip="@+id/filter_all">
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/filter_all"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/all" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/filter_incomplete"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/incomplete" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/filter_complete"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/complete" />
-
-                </com.google.android.material.chip.ChipGroup>
-
-            </LinearLayout>
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="15"
+                tools:listitem="@layout/list_todo_item" />
 
         </androidx.core.widget.NestedScrollView>
 
