@@ -7,7 +7,7 @@
         <item name="colorSurface">@color/backgroundColor</item>
         <item name="colorOnSurface">@color/white</item>
         <item name="colorSecondary">@color/purple_200</item>
-        <item name="colorOnSecondary">@color/purple_200</item>
+        <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/backgroundColor</item>
         <!-- Customize your theme here. -->
