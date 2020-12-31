@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.powilliam.anothertodoapp.databinding.FragmentWriteTodoBottomSheetBinding
 import com.powilliam.anothertodoapp.domain.databases.AppDatabase
@@ -19,6 +20,7 @@ class WriteTodoBottomSheetFragment : BottomSheetDialogFragment() {
         val todoDao = database.todoDao()
         WriteTodoBottomSheetViewModelFactory(todoDao)
     }
+    private val args: WriteTodoBottomSheetFragmentArgs by navArgs()
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -31,8 +33,15 @@ class WriteTodoBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setContentTextfieldValueWhenHavingTodoAsNavigationArgument()
         setToolbarNavigationOnClickListener()
         setToolbarOnMenuItemClickListener()
+    }
+
+    private fun setContentTextfieldValueWhenHavingTodoAsNavigationArgument() {
+        args.todo?.let {
+            binding.textField.setText(it.content)
+        }
     }
 
     private fun setToolbarNavigationOnClickListener() {
@@ -49,9 +58,13 @@ class WriteTodoBottomSheetFragment : BottomSheetDialogFragment() {
                 R.id.done -> navigateToTodosFragment {
                     val content = binding.textField.text
                     if (content.isNotEmpty()) {
-                        viewModel.createTodo(content.toString())
-                        binding.textField.clearComposingText()
+                        when (args.todo) {
+                            null -> viewModel.createTodo(content.toString())
+                            else -> viewModel
+                                    .updateTodoContent(args.todo!!.uuid, content.toString())
+                        }
                     }
+                    binding.textField.clearComposingText()
                 }
                 else -> false
             }

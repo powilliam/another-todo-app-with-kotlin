@@ -1,7 +1,6 @@
 package com.powilliam.anothertodoapp
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -20,6 +19,10 @@ class TodosFragment : Fragment() {
     private val todoAdapter = TodoAdapter(
             { todo: Todo ->
                 // TODO Navigate to WriteTodoBottomSheetFragment to update
+                val action = TodosFragmentDirections
+                        .actionTodosFragmentToWriteTodoBottomSheetFragment(todo)
+                val controller = findNavController()
+                controller.navigate(action)
             },
             { todo: Todo ->
                 viewModel.updateTodoState(todo)
@@ -63,8 +66,10 @@ class TodosFragment : Fragment() {
     }
 
     private fun navigateToWriteTodoBottomSheetFragment(): Boolean {
+        val action = TodosFragmentDirections
+                .actionTodosFragmentToWriteTodoBottomSheetFragment(null)
         val controller = findNavController()
-        controller.navigate(R.id.action_todosFragment_to_writeTodoBottomSheetFragment)
+        controller.navigate(action)
         return true
     }
 }
