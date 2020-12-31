@@ -15,6 +15,12 @@ class WriteTodoBottomSheetViewModel(private val todoDao: TodoDao) : ViewModel() 
         }
     }
 
+    fun updateTodoContent(uuid: String, content: String) = viewModelScope.launch {
+        executor.execute {
+            todoDao.updateContent(uuid, content)
+        }
+    }
+
     companion object {
         private val executor = Executors.newSingleThreadExecutor()
     }
