@@ -1,12 +1,16 @@
 package com.powilliam.anothertodoapp
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.powilliam.anothertodoapp.domain.daos.TodoDao
 import com.powilliam.anothertodoapp.domain.models.Todo
 import kotlinx.coroutines.launch
-import java.util.concurrent.Executors
+import java.util.concurrent.Executor
 
-class TodosViewModel(private val todoDao: TodoDao): ViewModel() {
+class TodosViewModel @ViewModelInject constructor(
+    private val todoDao: TodoDao,
+    private val singleThreadExecutor: Executor
+    ): ViewModel() {
     private var _state: MutableLiveData<ViewModelState> = Transformations.map(todoDao.get()) {
         ViewModelState(
                 todos = it,
@@ -25,7 +29,7 @@ class TodosViewModel(private val todoDao: TodoDao): ViewModel() {
     )
 
     fun updateTodoState(todo: Todo) = viewModelScope.launch {
-        executor.execute {
+        singleThreadExecutor.execute {
             val newState = when (todo.state) {
                 Todo.STATE_COMPLETE -> Todo.STATE_INCOMPLETE
                 else -> Todo.STATE_COMPLETE
@@ -39,7 +43,6 @@ class TodosViewModel(private val todoDao: TodoDao): ViewModel() {
     }
 
     companion object {
-        private val executor = Executors.newSingleThreadExecutor()
         const val FILTER_ALL = 0
         const val FILTER_IMCOMPLETE = 1
         const val FILTER_COMPLETE = 2

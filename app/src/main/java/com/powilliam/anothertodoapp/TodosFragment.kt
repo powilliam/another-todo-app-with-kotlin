@@ -11,9 +11,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.powilliam.anothertodoapp.adapters.TodoAdapter
 import com.powilliam.anothertodoapp.databinding.FragmentTodosBinding
-import com.powilliam.anothertodoapp.domain.databases.AppDatabase
 import com.powilliam.anothertodoapp.domain.models.Todo
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TodosFragment : Fragment() {
     private lateinit var binding: FragmentTodosBinding
     private val todoAdapter = TodoAdapter(
@@ -27,11 +28,7 @@ class TodosFragment : Fragment() {
                 viewModel.updateTodoState(todo)
             }
     )
-    private val viewModel: TodosViewModel by viewModels {
-        val database = AppDatabase.getInstance(requireContext())
-        val todoDao = database.todoDao()
-        TodosViewModelFactory(todoDao)
-    }
+    private val viewModel: TodosViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
