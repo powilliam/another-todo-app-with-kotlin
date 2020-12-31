@@ -1,13 +1,17 @@
 package com.powilliam.anothertodoapp.domain.models
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.util.*
 
+@Entity(tableName = "todos")
 data class Todo(
-        val uuid: String = UUID
+    @PrimaryKey val uuid: String = UUID
                 .randomUUID()
                 .toString(),
-        val content: String,
-        val state: Int = STATE_INCOMPLETE
+    @ColumnInfo val content: String,
+    @ColumnInfo val state: Int = STATE_INCOMPLETE
 ) {
     companion object {
         const val STATE_INCOMPLETE = 0
