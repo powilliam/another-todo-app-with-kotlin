@@ -21,5 +21,9 @@
             app:destination="@id/todosFragment"
             app:popUpTo="@id/todosFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="todo"
+            app:argType="com.powilliam.anothertodoapp.domain.models.Todo"
+            app:nullable="true" />
     </dialog>
 </navigation>
