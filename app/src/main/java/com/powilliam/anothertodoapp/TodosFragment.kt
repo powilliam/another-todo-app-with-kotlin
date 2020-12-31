@@ -18,7 +18,6 @@ class TodosFragment : Fragment() {
     private lateinit var binding: FragmentTodosBinding
     private val todoAdapter = TodoAdapter(
             { todo: Todo ->
-                // TODO Navigate to WriteTodoBottomSheetFragment to update
                 val action = TodosFragmentDirections
                         .actionTodosFragmentToWriteTodoBottomSheetFragment(todo)
                 val controller = findNavController()
