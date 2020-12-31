@@ -11,15 +11,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.powilliam.anothertodoapp.databinding.FragmentWriteTodoBottomSheetBinding
-import com.powilliam.anothertodoapp.domain.databases.AppDatabase
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WriteTodoBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentWriteTodoBottomSheetBinding
-    private val viewModel: WriteTodoBottomSheetViewModel by viewModels {
-        val database = AppDatabase.getInstance(requireContext())
-        val todoDao = database.todoDao()
-        WriteTodoBottomSheetViewModelFactory(todoDao)
-    }
+    private val viewModel: WriteTodoBottomSheetViewModel by viewModels()
     private val args: WriteTodoBottomSheetFragmentArgs by navArgs()
 
     override fun onCreateView(
