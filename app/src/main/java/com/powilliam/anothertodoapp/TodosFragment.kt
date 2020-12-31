@@ -47,11 +47,25 @@ class TodosFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observeViewModelState()
         setToolbarOnMenuItemClickListener()
+        setChipGroupFilterOnCheckedChangeListener()
     }
 
     private fun observeViewModelState() {
         viewModel.state.observe(viewLifecycleOwner) {
-            todoAdapter.submitList(it.todos)
+            when (it.filterState) {
+                TodosViewModel.FILTER_ALL -> {
+                    todoAdapter.submitList(it.todos)
+                    binding.chipGroupFilter.check(R.id.filter_all)
+                }
+                TodosViewModel.FILTER_IMCOMPLETE -> {
+                    todoAdapter.submitList(it.incompleteTodos)
+                    binding.chipGroupFilter.check(R.id.filter_incomplete)
+                }
+                TodosViewModel.FILTER_COMPLETE -> {
+                    todoAdapter.submitList(it.completeTodos)
+                    binding.chipGroupFilter.check(R.id.filter_complete)
+                }
+            }
         }
     }
 
@@ -60,6 +74,19 @@ class TodosFragment : Fragment() {
             when(menuItem.itemId) {
                 R.id.write_todo -> navigateToWriteTodoBottomSheetFragment()
                 else -> false
+            }
+        }
+    }
+
+    private fun setChipGroupFilterOnCheckedChangeListener() {
+        binding.chipGroupFilter.setOnCheckedChangeListener { _, checked ->
+            when(checked) {
+                R.id.filter_all -> viewModel
+                        .updateFilterState(TodosViewModel.FILTER_ALL)
+                R.id.filter_incomplete -> viewModel
+                        .updateFilterState(TodosViewModel.FILTER_IMCOMPLETE)
+                R.id.filter_complete -> viewModel
+                        .updateFilterState(TodosViewModel.FILTER_COMPLETE)
             }
         }
     }
