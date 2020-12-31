@@ -47,9 +47,11 @@ class WriteTodoBottomSheetFragment : BottomSheetDialogFragment() {
         binding.toolbar.setOnMenuItemClickListener { menuItem: MenuItem ->
             when(menuItem.itemId) {
                 R.id.done -> navigateToTodosFragment {
-                    val content = binding.textField.text.toString()
-                    viewModel.createTodo(content)
-                    binding.textField.clearComposingText()
+                    val content = binding.textField.text
+                    if (content.isNotEmpty()) {
+                        viewModel.createTodo(content.toString())
+                        binding.textField.clearComposingText()
+                    }
                 }
                 else -> false
             }
