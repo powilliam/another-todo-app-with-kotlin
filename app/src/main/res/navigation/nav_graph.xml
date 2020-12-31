@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/todosFragment">
+    <fragment
+        android:id="@+id/todosFragment"
+        android:name="com.powilliam.anothertodoapp.TodosFragment"
+        tools:layout="@layout/fragment_todos" >
+        <action
+            android:id="@+id/action_todosFragment_to_writeTodoBottomSheetFragment"
+            app:destination="@id/writeTodoBottomSheetFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/writeTodoBottomSheetFragment"
+        android:name="com.powilliam.anothertodoapp.WriteTodoBottomSheetFragment"
+        tools:layout="@layout/fragment_write_todo_bottom_sheet" >
+        <action
+            android:id="@+id/action_writeTodoBottomSheetFragment_to_todosFragment"
+            app:destination="@id/todosFragment"
+            app:popUpTo="@id/todosFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="todo"
+            app:argType="com.powilliam.anothertodoapp.domain.models.Todo"
+            app:nullable="true" />
+    </dialog>
+</navigation>
