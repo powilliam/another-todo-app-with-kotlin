@@ -90,8 +90,10 @@ class WriteTodoBottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun navigateToTodosFragment(callback: () -> Unit): Boolean {
         try {
+            val action = WriteTodoBottomSheetFragmentDirections
+                    .actionWriteTodoBottomSheetFragmentToTodosFragment()
             val controller = findNavController()
-            controller.navigate(R.id.action_writeTodoBottomSheetFragment_to_todosFragment)
+            controller.navigate(action)
             return true
         } finally {
             callback()
