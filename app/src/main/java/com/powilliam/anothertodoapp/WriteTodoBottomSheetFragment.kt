@@ -31,13 +31,28 @@ class WriteTodoBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setContentTextfieldValueWhenHavingTodoAsNavigationArgument()
+        setDeleteButtonVisibilityWhenHavingTodoAsNavigationArgument()
         setToolbarNavigationOnClickListener()
         setToolbarOnMenuItemClickListener()
     }
 
     private fun setContentTextfieldValueWhenHavingTodoAsNavigationArgument() {
         args.todo?.let {
-            binding.textField.setText(it.content)
+            binding.textField.text.append(it.content)
+        }
+    }
+
+    private fun setDeleteButtonVisibilityWhenHavingTodoAsNavigationArgument() {
+        val deleteMenuItem = binding.toolbar.menu.getItem(DELETE_MENU_ITEM)
+        when(args.todo) {
+            null -> {
+                deleteMenuItem.isVisible = false
+                deleteMenuItem.isEnabled = false
+            }
+            else -> {
+                deleteMenuItem.isVisible = true
+                deleteMenuItem.isEnabled = true
+            }
         }
     }
 
@@ -63,6 +78,11 @@ class WriteTodoBottomSheetFragment : BottomSheetDialogFragment() {
                     }
                     binding.textField.clearComposingText()
                 }
+                R.id.delete -> navigateToTodosFragment {
+                    args.todo?.let {
+                        viewModel.deleteTodo(it)
+                    }
+                }
                 else -> false
             }
         }
@@ -76,5 +96,9 @@ class WriteTodoBottomSheetFragment : BottomSheetDialogFragment() {
         } finally {
             callback()
         }
+    }
+
+    companion object {
+        private const val DELETE_MENU_ITEM = 0
     }
 }

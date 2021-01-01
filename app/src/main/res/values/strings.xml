@@ -20,4 +20,5 @@
     <string name="close_bottom_sheet">Close bottom sheet</string>
     <string name="done">Done</string>
     <string name="what_do_you_gonna_do">What do you gonna do?</string>
+    <string name="delete">Delete</string>
 </resources>
