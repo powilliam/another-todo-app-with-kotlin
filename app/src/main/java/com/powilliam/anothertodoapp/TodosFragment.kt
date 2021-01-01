@@ -19,10 +19,7 @@ class TodosFragment : Fragment() {
     private lateinit var binding: FragmentTodosBinding
     private val todoAdapter = TodoAdapter(
             { todo: Todo ->
-                val action = TodosFragmentDirections
-                        .actionTodosFragmentToWriteTodoBottomSheetFragment(todo)
-                val controller = findNavController()
-                controller.navigate(action)
+                navigateToWriteTodoBottomSheetFragment(todo)
             },
             { todo: Todo ->
                 viewModel.updateTodoState(todo)
@@ -69,7 +66,7 @@ class TodosFragment : Fragment() {
     private fun setToolbarOnMenuItemClickListener() {
         binding.toolbar.setOnMenuItemClickListener { menuItem: MenuItem ->
             when(menuItem.itemId) {
-                R.id.write_todo -> navigateToWriteTodoBottomSheetFragment()
+                R.id.write_todo -> navigateToWriteTodoBottomSheetFragment(null)
                 else -> false
             }
         }
@@ -88,9 +85,9 @@ class TodosFragment : Fragment() {
         }
     }
 
-    private fun navigateToWriteTodoBottomSheetFragment(): Boolean {
+    private fun navigateToWriteTodoBottomSheetFragment(todo: Todo?): Boolean {
         val action = TodosFragmentDirections
-                .actionTodosFragmentToWriteTodoBottomSheetFragment(null)
+                .actionTodosFragmentToWriteTodoBottomSheetFragment(todo)
         val controller = findNavController()
         controller.navigate(action)
         return true
