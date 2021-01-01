@@ -10,21 +10,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.powilliam.anothertodoapp.adapters.TodoAdapter
+import com.powilliam.anothertodoapp.adapters.TodoCardClickListeners
 import com.powilliam.anothertodoapp.databinding.FragmentTodosBinding
 import com.powilliam.anothertodoapp.domain.models.Todo
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TodosFragment : Fragment() {
+class TodosFragment : Fragment(),
+        TodoCardClickListeners {
     private lateinit var binding: FragmentTodosBinding
-    private val todoAdapter = TodoAdapter(
-            { todo: Todo ->
-                navigateToWriteTodoBottomSheetFragment(todo)
-            },
-            { todo: Todo ->
-                viewModel.updateTodoState(todo)
-            }
-    )
+    private val todoAdapter = TodoAdapter(this)
     private val viewModel: TodosViewModel by viewModels()
 
     override fun onCreateView(
@@ -42,6 +37,14 @@ class TodosFragment : Fragment() {
         observeViewModelState()
         setToolbarOnMenuItemClickListener()
         setChipGroupFilterOnCheckedChangeListener()
+    }
+
+    override fun onPressTodoCard(todo: Todo) {
+        navigateToWriteTodoBottomSheetFragment(todo)
+    }
+
+    override fun onPressTodoRadioButton(todo: Todo) {
+        viewModel.updateTodoState(todo)
     }
 
     private fun observeViewModelState() {
