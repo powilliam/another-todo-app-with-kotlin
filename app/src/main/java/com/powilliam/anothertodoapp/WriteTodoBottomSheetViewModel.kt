@@ -24,4 +24,10 @@ class WriteTodoBottomSheetViewModel @ViewModelInject constructor(
             todoDao.updateContent(uuid, content)
         }
     }
+
+    fun deleteTodo(todo: Todo) = viewModelScope.launch {
+        singleThreadExecutor.execute {
+            todoDao.delete(todo)
+        }
+    }
 }
