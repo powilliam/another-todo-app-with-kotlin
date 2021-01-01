@@ -11,17 +11,19 @@ import com.powilliam.anothertodoapp.R
 import com.powilliam.anothertodoapp.domain.models.Todo
 import com.powilliam.anothertodoapp.databinding.ListTodoItemBinding
 
-typealias Pressable = (todo: Todo) -> Unit
+interface TodoCardClickListeners {
+    fun onPressTodoCard(todo: Todo)
+    fun onPressTodoRadioButton(todo: Todo)
+}
 
 class TodoAdapter(
-        private val onPressTodoCard: Pressable,
-        private val onPressTodoRadioButton: Pressable
+        private val listeners: TodoCardClickListeners
 ) : ListAdapter<Todo, TodoAdapter.ViewHolder>(
         TodoAdapterDiffCallback()
 ) {
     override fun onCreateViewHolder(
             parent: ViewGroup, viewType: Int
-    ): ViewHolder = ViewHolder.create(parent, onPressTodoCard, onPressTodoRadioButton)
+    ): ViewHolder = ViewHolder.create(parent, listeners)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val todo = getItem(position)
@@ -30,28 +32,26 @@ class TodoAdapter(
 
     class ViewHolder(
             private val binding: ListTodoItemBinding,
-            private val onPressTodoCard: Pressable,
-            private val onPressTodoRadioButton: Pressable
+            private val listeners: TodoCardClickListeners
             ) : RecyclerView.ViewHolder(
             binding.root
     ) {
         fun bind(todo: Todo) {
             binding.todo = todo
             binding.executePendingBindings()
-            binding.card.setOnClickListener { onPressTodoCard(todo) }
-            binding.radiobutton.setOnClickListener { onPressTodoRadioButton(todo) }
+            binding.card.setOnClickListener { listeners.onPressTodoCard(todo) }
+            binding.radiobutton.setOnClickListener { listeners.onPressTodoRadioButton(todo) }
         }
 
         companion object {
             fun create(
                     parent: ViewGroup,
-                    onPressTodoCard: Pressable,
-                    onPressTodoRadioButton: Pressable
+                    listeners: TodoCardClickListeners
             ): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = DataBindingUtil.inflate<ListTodoItemBinding>(
                         layoutInflater, R.layout.list_todo_item, parent, false)
-                return ViewHolder(binding, onPressTodoCard, onPressTodoRadioButton)
+                return ViewHolder(binding, listeners)
             }
         }
     }
