@@ -11,8 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.powilliam.anothertodoapp.R
-import com.powilliam.anothertodoapp.WriteTodoBottomSheetFragmentArgs
-import com.powilliam.anothertodoapp.WriteTodoBottomSheetFragmentDirections
 import com.powilliam.anothertodoapp.ui.viewmodels.WriteTodoBottomSheetViewModel
 import com.powilliam.anothertodoapp.databinding.FragmentWriteTodoBottomSheetBinding
 import dagger.hilt.android.AndroidEntryPoint

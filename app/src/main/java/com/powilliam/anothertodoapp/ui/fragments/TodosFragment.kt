@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.powilliam.anothertodoapp.R
-import com.powilliam.anothertodoapp.TodosFragmentDirections
 import com.powilliam.anothertodoapp.ui.viewmodels.TodosViewModel
 import com.powilliam.anothertodoapp.ui.adapters.TodoAdapter
 import com.powilliam.anothertodoapp.ui.adapters.TodoCardClickListeners
