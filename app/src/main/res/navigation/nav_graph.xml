@@ -6,7 +6,7 @@
     app:startDestination="@id/todosFragment">
     <fragment
         android:id="@+id/todosFragment"
-        android:name="com.powilliam.anothertodoapp.TodosFragment"
+        android:name="com.powilliam.anothertodoapp.ui.fragments.TodosFragment"
         tools:layout="@layout/fragment_todos" >
         <action
             android:id="@+id/action_todosFragment_to_writeTodoBottomSheetFragment"
@@ -14,7 +14,7 @@
     </fragment>
     <dialog
         android:id="@+id/writeTodoBottomSheetFragment"
-        android:name="com.powilliam.anothertodoapp.WriteTodoBottomSheetFragment"
+        android:name="com.powilliam.anothertodoapp.ui.fragments.WriteTodoBottomSheetFragment"
         tools:layout="@layout/fragment_write_todo_bottom_sheet" >
         <action
             android:id="@+id/action_writeTodoBottomSheetFragment_to_todosFragment"

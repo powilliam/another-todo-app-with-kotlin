@@ -1,4 +1,4 @@
-package com.powilliam.anothertodoapp
+package com.powilliam.anothertodoapp.ui.viewmodels
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel

@@ -1,4 +1,4 @@
-package com.powilliam.anothertodoapp
+package com.powilliam.anothertodoapp.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,8 +9,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.powilliam.anothertodoapp.adapters.TodoAdapter
-import com.powilliam.anothertodoapp.adapters.TodoCardClickListeners
+import com.powilliam.anothertodoapp.R
+import com.powilliam.anothertodoapp.TodosFragmentDirections
+import com.powilliam.anothertodoapp.ui.viewmodels.TodosViewModel
+import com.powilliam.anothertodoapp.ui.adapters.TodoAdapter
+import com.powilliam.anothertodoapp.ui.adapters.TodoCardClickListeners
 import com.powilliam.anothertodoapp.databinding.FragmentTodosBinding
 import com.powilliam.anothertodoapp.domain.models.Todo
 import dagger.hilt.android.AndroidEntryPoint
@@ -89,8 +92,7 @@ class TodosFragment : Fragment(),
     }
 
     private fun navigateToWriteTodoBottomSheetFragment(todo: Todo?): Boolean {
-        val action = TodosFragmentDirections
-                .actionTodosFragmentToWriteTodoBottomSheetFragment(todo)
+        val action = TodosFragmentDirections.actionTodosFragmentToWriteTodoBottomSheetFragment(todo)
         val controller = findNavController()
         controller.navigate(action)
         return true

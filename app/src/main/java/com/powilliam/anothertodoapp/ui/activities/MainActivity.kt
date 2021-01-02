@@ -1,7 +1,8 @@
-package com.powilliam.anothertodoapp
+package com.powilliam.anothertodoapp.ui.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.powilliam.anothertodoapp.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
