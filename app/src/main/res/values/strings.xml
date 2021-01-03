@@ -21,4 +21,12 @@
     <string name="done">Done</string>
     <string name="what_do_you_gonna_do">What do you gonna do?</string>
     <string name="delete">Delete</string>
+    <string name="workspaces">Workspaces</string>
+    <string name="create_workspace">Create workspace</string>
+    <string name="update_workspace">Update workspace</string>
+    <string name="go_back">Go back</string>
+    <string name="how_should_it_be_called">How should it be called?</string>
+    <string name="categories">Categories</string>
+    <string name="create_category">Create category</string>
+    <string name="create">Create</string>
 </resources>

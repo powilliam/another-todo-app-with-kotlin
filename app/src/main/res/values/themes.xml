@@ -2,9 +2,9 @@
     <!-- Base application theme. -->
     <style name="Theme.AnotherTodoApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSurface">@color/backgroundColor</item>
+        <item name="colorSurface">@color/colorSurface</item>
         <item name="colorOnSurface">@color/white</item>
         <item name="colorSecondary">@color/purple_200</item>
         <item name="colorOnSecondary">@color/white</item>
@@ -14,7 +14,15 @@
         <item name="android:colorBackground">@color/backgroundColor</item>
         <item name="toolbarStyle">@style/Widget.AnotherTodoApp.Toolbar</item>
         <item name="chipStyle">@style/Widget.AnotherTodoApp.Chip.Filter</item>
+        <item name="floatingActionButtonStyle">
+            @style/Widget.AnotherTodoApp.FloatingActionButton
+        </item>
         <item name="textAppearanceBody2">@style/TextAppearance.MdcTypographyStyles.Body2</item>
+    </style>
+
+    <style name="Widget.AnotherTodoApp.FloatingActionButton"
+        parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">@color/colorPrimary</item>
     </style>
 
     <style name="Widget.AnotherTodoApp.Chip.Filter" parent="Widget.MaterialComponents.Chip.Filter">
@@ -23,6 +31,21 @@
         <item name="chipStrokeWidth">1dp</item>
         <item name="android:textColor">@color/chip_color</item>
         <item name="checkedIconTint">@color/chip_color</item>
+    </style>
+
+    <style name="Widget.AnotherTodoApp.Chip.Action" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="chipBackgroundColor">@color/colorPrimary</item>
+        <item name="chipIconTint">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Widget.AnotherTodoApp.Dialog.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.AnotherTodoApp.Dialog.Toolbar</item>
+        <item name="titleTextAppearance">@style/TextAppearance.MdcTypographyStyles.Headline6</item>
+    </style>
+
+    <style name="ThemeOverlay.AnotherTodoApp.Dialog.Toolbar" parent="ThemeOverlay.AnotherTodoApp.Toolbar">
+        <item name="colorPrimary">@color/colorSurface</item>
     </style>
 
     <style name="Widget.AnotherTodoApp.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">

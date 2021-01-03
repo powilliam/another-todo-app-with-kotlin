@@ -3,7 +3,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/todosFragment">
+    app:startDestination="@+id/workspacesFragment">
+    <fragment
+        android:id="@+id/workspacesFragment"
+        android:name="com.powilliam.anothertodoapp.ui.fragments.WorkspacesFragment"
+        tools:layout="@layout/fragment_workspaces">
+        <action
+            android:id="@+id/action_workspacesFragment_to_writeWorkspacesFragment"
+            app:destination="@+id/writeWorkspaceFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_workspacesFragment_to_todosFragment"
+            app:destination="@+id/todosFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/writeWorkspaceFragment"
+        android:name="com.powilliam.anothertodoapp.ui.fragments.WriteWorkspaceFragment"
+        tools:layout="@layout/fragment_write_workspace">
+        <argument
+            android:name="title"
+            app:argType="string"
+            app:nullable="false" />
+        <action
+            android:id="@+id/action_writeWorkspaceFragment_to_workspacesFragment"
+            app:destination="@id/workspacesFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/workspacesFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_writeWorkspaceFragment_to_todosFragment"
+            app:destination="@+id/todosFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/workspacesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/todosFragment"
         android:name="com.powilliam.anothertodoapp.ui.fragments.TodosFragment"

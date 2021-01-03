@@ -20,7 +20,8 @@
                 app:title="@string/write_a_todo"
                 app:navigationIcon="@drawable/ic_baseline_close_24"
                 app:navigationContentDescription="@string/close_bottom_sheet"
-                app:menu="@menu/write_todo_menu"/>
+                app:menu="@menu/write_menu"
+                style="@style/Widget.AnotherTodoApp.Dialog.Toolbar"/>
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -34,7 +35,6 @@
                 android:padding="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
                 android:hint="@string/what_do_you_gonna_do"
                 android:textColorHint="@color/gray_600"
                 android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body1"
