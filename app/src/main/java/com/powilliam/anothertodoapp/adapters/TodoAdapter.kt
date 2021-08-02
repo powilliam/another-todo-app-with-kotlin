@@ -1,15 +1,14 @@
 package com.powilliam.anothertodoapp.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.powilliam.anothertodoapp.R
-import com.powilliam.anothertodoapp.domain.models.Todo
 import com.powilliam.anothertodoapp.databinding.ListTodoItemBinding
+import com.powilliam.anothertodoapp.domain.models.Todo
 
 interface TodoCardClickListeners {
     fun onPressTodoCard(todo: Todo)
@@ -17,12 +16,12 @@ interface TodoCardClickListeners {
 }
 
 class TodoAdapter(
-        private val listeners: TodoCardClickListeners
+    private val listeners: TodoCardClickListeners
 ) : ListAdapter<Todo, TodoAdapter.ViewHolder>(
-        TodoAdapterDiffCallback()
+    TodoAdapterDiffCallback()
 ) {
     override fun onCreateViewHolder(
-            parent: ViewGroup, viewType: Int
+        parent: ViewGroup, viewType: Int
     ): ViewHolder = ViewHolder.create(parent, listeners)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -31,10 +30,10 @@ class TodoAdapter(
     }
 
     class ViewHolder(
-            private val binding: ListTodoItemBinding,
-            private val listeners: TodoCardClickListeners
-            ) : RecyclerView.ViewHolder(
-            binding.root
+        private val binding: ListTodoItemBinding,
+        private val listeners: TodoCardClickListeners
+    ) : RecyclerView.ViewHolder(
+        binding.root
     ) {
         fun bind(todo: Todo) {
             binding.todo = todo
@@ -45,12 +44,13 @@ class TodoAdapter(
 
         companion object {
             fun create(
-                    parent: ViewGroup,
-                    listeners: TodoCardClickListeners
+                parent: ViewGroup,
+                listeners: TodoCardClickListeners
             ): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = DataBindingUtil.inflate<ListTodoItemBinding>(
-                        layoutInflater, R.layout.list_todo_item, parent, false)
+                    layoutInflater, R.layout.list_todo_item, parent, false
+                )
                 return ViewHolder(binding, listeners)
             }
         }
@@ -59,10 +59,10 @@ class TodoAdapter(
 
 class TodoAdapterDiffCallback : DiffUtil.ItemCallback<Todo>() {
     override fun areItemsTheSame(
-            oldItem: Todo, newItem: Todo
+        oldItem: Todo, newItem: Todo
     ): Boolean = oldItem.uuid == newItem.uuid
 
     override fun areContentsTheSame(
-            oldItem: Todo, newItem: Todo
+        oldItem: Todo, newItem: Todo
     ): Boolean = oldItem == newItem
 }

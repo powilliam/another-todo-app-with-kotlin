@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class WriteTodoBottomSheetViewModel @ViewModelInject constructor(
     private val repository: TodoRepository
-    ) : ViewModel() {
+) : ViewModel() {
     fun createTodo(content: String) = viewModelScope.launch {
         repository.create(content)
     }

@@ -7,8 +7,8 @@ import java.util.concurrent.Executor
 import javax.inject.Inject
 
 class TodoRepository @Inject constructor(
-        private val todoDao: TodoDao,
-        private val executor: Executor
+    private val todoDao: TodoDao,
+    private val executor: Executor
 ) {
     fun get(): LiveData<List<Todo>> = todoDao.get()
 
