@@ -25,7 +25,7 @@ class TodosFragment : Fragment(),
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_todos, container, false)
         binding.lifecycleOwner = this
         binding.todoList.adapter = todoAdapter
@@ -44,22 +44,20 @@ class TodosFragment : Fragment(),
     }
 
     override fun onPressTodoRadioButton(todo: Todo) {
-        viewModel.updateTodoState(todo)
+        viewModel.dispatch(event = TodosViewModelEvent.ChangeTodoState(todo))
     }
 
     private fun observeViewModelState() {
         viewModel.state.observe(viewLifecycleOwner) {
+            todoAdapter.submitList(it.todos)
             when (it.filterState) {
                 TodosViewModel.FILTER_ALL -> {
-                    todoAdapter.submitList(it.todos)
                     binding.chipGroupFilter.check(R.id.filter_all)
                 }
                 TodosViewModel.FILTER_IMCOMPLETE -> {
-                    todoAdapter.submitList(it.incompleteTodos)
                     binding.chipGroupFilter.check(R.id.filter_incomplete)
                 }
                 TodosViewModel.FILTER_COMPLETE -> {
-                    todoAdapter.submitList(it.completeTodos)
                     binding.chipGroupFilter.check(R.id.filter_complete)
                 }
             }
@@ -77,14 +75,13 @@ class TodosFragment : Fragment(),
 
     private fun setChipGroupFilterOnCheckedChangeListener() {
         binding.chipGroupFilter.setOnCheckedChangeListener { _, checked ->
-            when (checked) {
-                R.id.filter_all -> viewModel
-                    .updateFilterState(TodosViewModel.FILTER_ALL)
-                R.id.filter_incomplete -> viewModel
-                    .updateFilterState(TodosViewModel.FILTER_IMCOMPLETE)
-                R.id.filter_complete -> viewModel
-                    .updateFilterState(TodosViewModel.FILTER_COMPLETE)
+            val newFilterState = when (checked) {
+                R.id.filter_all -> TodosViewModel.FILTER_ALL
+                R.id.filter_incomplete -> TodosViewModel.FILTER_IMCOMPLETE
+                R.id.filter_complete -> TodosViewModel.FILTER_COMPLETE
+                else -> TodosViewModel.FILTER_ALL
             }
+            viewModel.dispatch(event = TodosViewModelEvent.ChangeFilterState(newFilterState))
         }
     }
 

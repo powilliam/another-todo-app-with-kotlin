@@ -3,15 +3,17 @@ package com.powilliam.anothertodoapp.domain.repositories
 import androidx.lifecycle.LiveData
 import com.powilliam.anothertodoapp.domain.daos.TodoDao
 import com.powilliam.anothertodoapp.domain.models.Todo
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class TodoRepository @Inject constructor(
     private val todoDao: TodoDao,
 ) {
-    fun get(): LiveData<List<Todo>> = todoDao.get()
+    suspend fun getAsync(): Deferred<List<Todo>> = withContext(Dispatchers.IO) {
+        async {
+            todoDao.get()
+        }
+    }
 
     suspend fun create(content: String) = withContext(Dispatchers.IO) {
         launch {
