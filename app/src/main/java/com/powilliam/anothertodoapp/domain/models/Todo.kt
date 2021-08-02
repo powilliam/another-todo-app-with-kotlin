@@ -9,8 +9,8 @@ import java.util.*
 @Entity(tableName = "todos")
 data class Todo(
     @PrimaryKey val uuid: String = UUID
-                .randomUUID()
-                .toString(),
+        .randomUUID()
+        .toString(),
     @ColumnInfo val content: String,
     @ColumnInfo val state: Int = STATE_INCOMPLETE
 ) : Serializable {

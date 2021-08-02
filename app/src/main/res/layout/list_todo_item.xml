@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="todo"
             type="com.powilliam.anothertodoapp.domain.models.Todo" />
@@ -15,8 +16,8 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-        app:cardElevation="0dp"
-        app:cardBackgroundColor="@color/backgroundColor">
+        app:cardBackgroundColor="@color/backgroundColor"
+        app:cardElevation="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -28,18 +29,18 @@
                 android:id="@+id/radiobutton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="@{todo.state == todo.STATE_COMPLETE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:checked="@{todo.state == todo.STATE_COMPLETE}" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/content"
                 style="@style/TextAppearance.MdcTypographyStyles.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
                 android:text="@{todo.content}"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/radiobutton"
                 app:layout_constraintTop_toTopOf="parent"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".TodosFragment">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -17,20 +17,20 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:elevation="0dp"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:title="@string/your_todos"
                 app:menu="@menu/fragment_todos_menu"
-                android:elevation="0dp"/>
+                app:title="@string/your_todos" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chip_group_filter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/backgroundColor"
                 android:paddingHorizontal="16dp"
-                app:singleSelection="true"
-                app:selectionRequired="true"
                 app:checkedChip="@+id/filter_all"
-                android:background="@color/backgroundColor">
+                app:selectionRequired="true"
+                app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/filter_all"

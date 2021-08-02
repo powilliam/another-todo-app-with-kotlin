@@ -1,12 +1,12 @@
 package com.powilliam.anothertodoapp
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.powilliam.anothertodoapp.adapters.TodoAdapter
@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class TodosFragment : Fragment(),
-        TodoCardClickListeners {
+    TodoCardClickListeners {
     private lateinit var binding: FragmentTodosBinding
     private val todoAdapter = TodoAdapter(this)
     private val viewModel: TodosViewModel by viewModels()
@@ -68,7 +68,7 @@ class TodosFragment : Fragment(),
 
     private fun setToolbarOnMenuItemClickListener() {
         binding.toolbar.setOnMenuItemClickListener { menuItem: MenuItem ->
-            when(menuItem.itemId) {
+            when (menuItem.itemId) {
                 R.id.write_todo -> navigateToWriteTodoBottomSheetFragment(null)
                 else -> false
             }
@@ -77,20 +77,20 @@ class TodosFragment : Fragment(),
 
     private fun setChipGroupFilterOnCheckedChangeListener() {
         binding.chipGroupFilter.setOnCheckedChangeListener { _, checked ->
-            when(checked) {
+            when (checked) {
                 R.id.filter_all -> viewModel
-                        .updateFilterState(TodosViewModel.FILTER_ALL)
+                    .updateFilterState(TodosViewModel.FILTER_ALL)
                 R.id.filter_incomplete -> viewModel
-                        .updateFilterState(TodosViewModel.FILTER_IMCOMPLETE)
+                    .updateFilterState(TodosViewModel.FILTER_IMCOMPLETE)
                 R.id.filter_complete -> viewModel
-                        .updateFilterState(TodosViewModel.FILTER_COMPLETE)
+                    .updateFilterState(TodosViewModel.FILTER_COMPLETE)
             }
         }
     }
 
     private fun navigateToWriteTodoBottomSheetFragment(todo: Todo?): Boolean {
         val action = TodosFragmentDirections
-                .actionTodosFragmentToWriteTodoBottomSheetFragment(todo)
+            .actionTodosFragmentToWriteTodoBottomSheetFragment(todo)
         val controller = findNavController()
         controller.navigate(action)
         return true
