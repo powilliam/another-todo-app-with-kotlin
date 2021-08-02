@@ -22,7 +22,7 @@ class WriteTodoBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil
             .inflate(inflater, R.layout.fragment_write_todo_bottom_sheet, container, false)
         return binding.root
@@ -30,13 +30,13 @@ class WriteTodoBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setContentTextfieldValueWhenHavingTodoAsNavigationArgument()
+        setContentTextFieldValueWhenHavingTodoAsNavigationArgument()
         setDeleteButtonVisibilityWhenHavingTodoAsNavigationArgument()
         setToolbarNavigationOnClickListener()
         setToolbarOnMenuItemClickListener()
     }
 
-    private fun setContentTextfieldValueWhenHavingTodoAsNavigationArgument() {
+    private fun setContentTextFieldValueWhenHavingTodoAsNavigationArgument() {
         args.todo?.let {
             binding.textField.text.append(it.content)
         }
@@ -70,17 +70,19 @@ class WriteTodoBottomSheetFragment : BottomSheetDialogFragment() {
                 R.id.done -> navigateToTodosFragment {
                     val content = binding.textField.text
                     if (content.isNotEmpty()) {
-                        when (args.todo) {
-                            null -> viewModel.createTodo(content.toString())
-                            else -> viewModel
-                                .updateTodoContent(args.todo!!.uuid, content.toString())
+                        val stringContent = content.toString()
+                        val event = when (args.todo) {
+                            null -> WriteTodoBottomSheetEvent.CreateTodo(stringContent)
+                            else -> WriteTodoBottomSheetEvent
+                                .UpdateTodoContent(args.todo!!.uuid, stringContent)
                         }
+                        viewModel.dispatch(event)
                     }
                     binding.textField.clearComposingText()
                 }
                 R.id.delete -> navigateToTodosFragment {
                     args.todo?.let {
-                        viewModel.deleteTodo(it)
+                        viewModel.dispatch(event = WriteTodoBottomSheetEvent.DeleteTodo(it))
                     }
                 }
                 else -> false
