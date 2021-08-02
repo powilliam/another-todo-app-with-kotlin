@@ -11,12 +11,12 @@ class TodosViewModel @ViewModelInject constructor(
     private val repository: TodoRepository,
     @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    private var _state: MutableLiveData<ViewModelState> = Transformations.map(repository.get()) {
+    private var _state: MutableLiveData<ViewModelState> = Transformations.map(repository.get()) { todos ->
         ViewModelState(
             filterState = savedStateHandle.get<Int>(FILTER_STATE_KEY) ?: FILTER_ALL,
-            todos = it,
-            incompleteTodos = it.filter { it.state == Todo.STATE_INCOMPLETE },
-            completeTodos = it.filter { it.state == Todo.STATE_COMPLETE },
+            todos = todos,
+            incompleteTodos = todos.filter { it.state == Todo.STATE_INCOMPLETE },
+            completeTodos = todos.filter { it.state == Todo.STATE_COMPLETE },
         )
     } as MutableLiveData<ViewModelState>
     val state: LiveData<ViewModelState>
