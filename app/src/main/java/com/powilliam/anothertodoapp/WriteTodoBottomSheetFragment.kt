@@ -70,17 +70,19 @@ class WriteTodoBottomSheetFragment : BottomSheetDialogFragment() {
                 R.id.done -> navigateToTodosFragment {
                     val content = binding.textField.text
                     if (content.isNotEmpty()) {
-                        when (args.todo) {
-                            null -> viewModel.createTodo(content.toString())
-                            else -> viewModel
-                                .updateTodoContent(args.todo!!.uuid, content.toString())
+                        val stringContent = content.toString()
+                        val event = when (args.todo) {
+                            null -> WriteTodoBottomSheetEvent.CreateTodo(stringContent)
+                            else -> WriteTodoBottomSheetEvent
+                                .UpdateTodoContent(args.todo!!.uuid, stringContent)
                         }
+                        viewModel.dispatch(event)
                     }
                     binding.textField.clearComposingText()
                 }
                 R.id.delete -> navigateToTodosFragment {
                     args.todo?.let {
-                        viewModel.deleteTodo(it)
+                        viewModel.dispatch(event = WriteTodoBottomSheetEvent.DeleteTodo(it))
                     }
                 }
                 else -> false
