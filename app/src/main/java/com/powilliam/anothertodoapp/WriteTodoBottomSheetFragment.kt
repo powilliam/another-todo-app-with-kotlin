@@ -22,7 +22,7 @@ class WriteTodoBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil
             .inflate(inflater, R.layout.fragment_write_todo_bottom_sheet, container, false)
         return binding.root
@@ -30,13 +30,13 @@ class WriteTodoBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setContentTextfieldValueWhenHavingTodoAsNavigationArgument()
+        setContentTextFieldValueWhenHavingTodoAsNavigationArgument()
         setDeleteButtonVisibilityWhenHavingTodoAsNavigationArgument()
         setToolbarNavigationOnClickListener()
         setToolbarOnMenuItemClickListener()
     }
 
-    private fun setContentTextfieldValueWhenHavingTodoAsNavigationArgument() {
+    private fun setContentTextFieldValueWhenHavingTodoAsNavigationArgument() {
         args.todo?.let {
             binding.textField.text.append(it.content)
         }
