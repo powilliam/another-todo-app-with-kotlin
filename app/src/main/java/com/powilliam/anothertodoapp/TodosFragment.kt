@@ -50,17 +50,7 @@ class TodosFragment : Fragment(),
     private fun observeViewModelState() {
         viewModel.state.observe(viewLifecycleOwner) {
             todoAdapter.submitList(it.todos)
-            when (it.filterState) {
-                TodosViewModel.FILTER_ALL -> {
-                    binding.chipGroupFilter.check(R.id.filter_all)
-                }
-                TodosViewModel.FILTER_IMCOMPLETE -> {
-                    binding.chipGroupFilter.check(R.id.filter_incomplete)
-                }
-                TodosViewModel.FILTER_COMPLETE -> {
-                    binding.chipGroupFilter.check(R.id.filter_complete)
-                }
-            }
+            binding.chipGroupFilter.check(it.filterState.res)
         }
     }
 
@@ -76,10 +66,10 @@ class TodosFragment : Fragment(),
     private fun setChipGroupFilterOnCheckedChangeListener() {
         binding.chipGroupFilter.setOnCheckedChangeListener { _, checked ->
             val newFilterState = when (checked) {
-                R.id.filter_all -> TodosViewModel.FILTER_ALL
-                R.id.filter_incomplete -> TodosViewModel.FILTER_IMCOMPLETE
-                R.id.filter_complete -> TodosViewModel.FILTER_COMPLETE
-                else -> TodosViewModel.FILTER_ALL
+                R.id.filter_all -> FilterState.All
+                R.id.filter_incomplete -> FilterState.Incomplete
+                R.id.filter_complete -> FilterState.Complete
+                else -> FilterState.All
             }
             viewModel.dispatch(event = TodosViewModelEvent.ChangeFilterState(newFilterState))
         }

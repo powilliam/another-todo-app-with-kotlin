@@ -1,20 +1,36 @@
 package com.powilliam.anothertodoapp
 
+import androidx.annotation.IdRes
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.powilliam.anothertodoapp.domain.models.Todo
 import com.powilliam.anothertodoapp.domain.repositories.TodoRepository
 import kotlinx.coroutines.launch
+import java.io.Serializable
+
+sealed class FilterState(val value: Int, @IdRes val res: Int) : Serializable {
+    object All : FilterState(value = TodosViewModel.FILTER_ALL, res = R.id.filter_all)
+
+    object Incomplete : FilterState(
+        value = TodosViewModel.FILTER_IMCOMPLETE,
+        res = R.id.filter_incomplete
+    )
+
+    object Complete : FilterState(
+        value = TodosViewModel.FILTER_COMPLETE,
+        res = R.id.filter_complete
+    )
+}
 
 data class ViewModelState(
-    val filterState: Int,
+    val filterState: FilterState,
     val todos: List<Todo>
 )
 
 sealed class TodosViewModelEvent {
     data class ChangeTodoState(val todo: Todo) : TodosViewModelEvent()
-    data class ChangeFilterState(val newFilterState: Int) : TodosViewModelEvent()
+    data class ChangeFilterState(val newFilterState: FilterState) : TodosViewModelEvent()
 }
 
 class TodosViewModel @ViewModelInject constructor(
@@ -45,17 +61,18 @@ class TodosViewModel @ViewModelInject constructor(
         refresh()
     }
 
-    private fun updateFilterState(newFilterState: Int) = viewModelScope.launch {
+    private fun updateFilterState(newFilterState: FilterState) = viewModelScope.launch {
         savedStateHandle.set(FILTER_STATE_KEY, newFilterState)
         refresh()
     }
 
     private fun refresh() = viewModelScope.launch {
         val todos = repository.getAsync().await()
-        val savedFilterState = savedStateHandle.get<Int>(FILTER_STATE_KEY) ?: FILTER_ALL
+        val savedFilterState =
+            savedStateHandle.get<FilterState>(FILTER_STATE_KEY) ?: FilterState.All
         val todosFilteredBySavedFilterState = when (savedFilterState) {
-            FILTER_IMCOMPLETE -> todos.filter { it.state == Todo.STATE_INCOMPLETE }
-            FILTER_COMPLETE -> todos.filter { it.state == Todo.STATE_COMPLETE }
+            is FilterState.Incomplete -> todos.filter { it.state == Todo.STATE_INCOMPLETE }
+            is FilterState.Complete -> todos.filter { it.state == Todo.STATE_COMPLETE }
             else -> todos
         }
         _state.value =
